@@ -4,7 +4,7 @@ resource "aws_instance" "example" {
     vpc_security_group_ids = [aws_security_group.web_sg.id] 
 
   tags = {
-    Name = "HelloWorld"
+    Name = "Terraform"
   }
 }
 
@@ -24,7 +24,7 @@ ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] 
   }
   ingress {
     from_port   = 8080
@@ -39,4 +39,8 @@ ingress {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+
+
 
