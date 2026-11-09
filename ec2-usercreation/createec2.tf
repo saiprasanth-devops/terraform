@@ -1,11 +1,10 @@
 resource "aws_instance" "example" {
-  ami           = "ami-0055977a6e828a4f4"
+  ami           = var.ami_details
   instance_type = var.instance_type
     vpc_security_group_ids = [aws_security_group.web_sg.id] 
 
-  tags = {
-    Name = "Terraform"
-  }
+  tags = var.tagName
+  
 }
 
 # 1. Define the Security Group
@@ -15,29 +14,29 @@ resource "aws_security_group" "web_sg" {
  # vpc_id      = "vpc-12345678" # Replace with your VPC ID
 
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = var.frontendports
+    to_port     = var.frontendports
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_blocks
   }
 ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
+    cidr_blocks = var.cidr_blocks
   }
   ingress {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = var.cidr_blocks
   }
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+    cidr_blocks = var.cidr_blocks
+      }
 }
 
 
